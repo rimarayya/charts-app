@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable react-hooks/exhaustive-deps */
+import Linechart from './components/Linechart';
+import './main.css';
+import Piechart from './components/Piechart';
+import Form from './styles/Form';
+import { useReadingsStore } from './stores/readings.store';
+import { useEffect } from 'react';
+import Cards from './styles/Cards';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	const {
+		setReferenceTimestamp,
+		setDomain,
+		referenceTimestamp,
+		domainStart,
+		domainEnd,
+	} = useReadingsStore();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+	useEffect(() => {
+		if (referenceTimestamp === null) {
+			setReferenceTimestamp(new Date());
+		}
+		if (domainStart === 0 && domainEnd === null) {
+			setDomain(0, null);
+		}
+	}, []);
+	return (
+		<>
+			<Form />
+			<div>
+				<Cards />
+			</div>
+			<div className="flex space-x-4 mb-8">
+				<div className="w-[65%]">
+					<Linechart />
+				</div>
 
-export default App
+				<div className="w-[35%]">
+					<Piechart />
+				</div>
+			</div>
+		</>
+	);
+};
+
+export default App;
