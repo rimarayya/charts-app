@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import allReadings from '../data/untitled-1.json';
+import allReadings from '../data/messed-up-map-readings.json';
 import { IReading } from '../types/reading.type';
 
 interface ReadingsStore {

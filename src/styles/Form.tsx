@@ -35,7 +35,7 @@ export default function Form() {
 					<Input
 						id="reference-date"
 						type="datetime-local"
-						defaultValue={
+						value={
 							referenceTimestamp?.toISOString().slice(0, -1) || ''
 						}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
