@@ -52,8 +52,8 @@ export default function Linechart() {
 				margin={{
 					top: 5,
 					right: 30,
-					left: 20,
-					bottom: 5,
+					left: 40,
+					bottom: 40,
 				}}
 			>
 				<CartesianGrid strokeDasharray="3 3" />
@@ -61,20 +61,52 @@ export default function Linechart() {
 					dataKey="readingNumber"
 					label={{
 						value: 'Reading Number',
+						style: { textAnchor: 'middle' },
 						position: 'insideBottom',
-						offset: -5,
+						offset: -75,
+						fontSize: 16,
+						fill: '#64748b',
 					}}
+					tickMargin={5}
 				/>
 				<YAxis
 					dataKey="timestamp"
 					tickFormatter={(tick) => toUTCFormat(new Date(tick))}
 					label={{
 						value: 'Timestamp',
+						style: { textAnchor: 'middle' },
+						fontSize: 16,
+						fill: '#64748b',
 						angle: -90,
-						position: 'insideLeft',
+						position: 'left',
+						offset: 35,
+					}}
+					tick={{
+						fill: '#4B5563',
+						fontSize: 14,
 					}}
 					domain={['auto', 'auto']}
+					padding={{ top: 20, bottom: 20 }}
 				/>
+				<Brush dataKey="readingNumber" height={40} stroke="#d4d4d8">
+					<LineChart data={data}>
+						<YAxis domain={['auto', 'auto']} hide />
+						<Line
+							dataKey="timestamp"
+							stroke="#bef264"
+							strokeWidth={1}
+							dot={false}
+							hide={!lineProps.timestamp}
+						/>
+						<Line
+							dataKey="createdAt"
+							stroke="#a5b4fc"
+							strokeWidth={1}
+							dot={false}
+							hide={!lineProps.createdAt}
+						/>
+					</LineChart>
+				</Brush>
 				<Tooltip
 					formatter={(value, name) => {
 						return [
@@ -118,11 +150,9 @@ export default function Linechart() {
 						return `Delay: ${formattedTime} | ID: ${data.readingId} | #${data.readingNumber}`;
 					}}
 				/>
-				<Brush dataKey="readingNumber" height={30} stroke="#8884d8" />
-
 				<Line
 					dataKey="timestamp"
-					stroke="#00ff00"
+					stroke="#bef264"
 					name="Timestamp"
 					strokeWidth={2}
 					dot={false}
@@ -130,14 +160,13 @@ export default function Linechart() {
 				/>
 				<Line
 					dataKey="createdAt"
-					stroke="#ff7300"
+					stroke="#a5b4fc"
 					name="Created At"
 					strokeWidth={2}
 					dot={false}
 					hide={!lineProps.createdAt}
 				/>
-
-				<Legend onClick={selectLine} />
+				<Legend onClick={selectLine} align="right" />
 			</LineChart>
 		</ResponsiveContainer>
 	);

@@ -4,13 +4,8 @@ import { Label } from '../components/ui/label';
 import { useReadingsStore } from '../stores/readings.store';
 
 export default function Form() {
-	const {
-		domainStart,
-		domainEnd,
-		setDomain,
-		referenceTimestamp,
-		setReferenceTimestamp,
-	} = useReadingsStore();
+	const { domainStart, domainEnd, setDomain, referenceTimestamp } =
+		useReadingsStore();
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -23,10 +18,7 @@ export default function Form() {
 	};
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="p-4 bg-gray-100 rounded-lg shadow m-8"
-		>
+		<form onSubmit={handleSubmit} className="p-4 bg-neutral-50 shadow mb-4">
 			<div className="flex space-x-4 ">
 				<div className="flex items-center">
 					<Label htmlFor="reference-date" className="w-36">
@@ -35,11 +27,8 @@ export default function Form() {
 					<Input
 						id="reference-date"
 						type="datetime-local"
-						value={
+						defaultValue={
 							referenceTimestamp?.toISOString().slice(0, -1) || ''
-						}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setReferenceTimestamp(new Date(e.target.value))
 						}
 					/>
 				</div>

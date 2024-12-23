@@ -10,15 +10,15 @@ const App = () => {
 	return (
 		<>
 			<Form />
-			<div>
-				<Cards />
-			</div>
-			<div className="flex space-x-4 mb-8">
-				<div className="w-[65%]">
-					<Linechart />
+			<div className="flex items-start">
+				<div className="w-[70%]">
+					<Cards />
+					<div className="ml-4">
+						<Linechart />
+					</div>
 				</div>
 
-				<div className="w-[35%]">
+				<div className="w-[45%]">
 					<Piechart />
 				</div>
 			</div>
