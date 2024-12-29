@@ -6,47 +6,19 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-	Legend,
 	ResponsiveContainer,
+	Cell,
 } from 'recharts';
 import { useReadingsStore } from '../stores/readings.store';
-import { useState } from 'react';
 
 export default function Barchart() {
 	const { orderGroup } = useReadingsStore();
 
-	// const data: { count: number; number: number }[] = [];
+	const data: { count: number; number: number }[] = [];
 
-	// for (let i = 0; i < orderGroup.length; i++) {
-	// 	data.push({ count: orderGroup[i], number: i + 1 });
-	// }
-
-	const data: {
-		count: number;
-		number: number;
-		inOrder: number;
-		notInOrder: number;
-	}[] = orderGroup.map((count, index) => ({
-		count: count,
-		number: index + 1,
-		inOrder: count >= 0 ? count : 0,
-		notInOrder: count < 0 ? count : 0,
-	}));
-
-	const [lineProps, setLineProps] = useState({
-		notInOrder: true,
-		inOrder: true,
-	});
-
-	const selectLine = (data: { value: string }) => {
-		const dataKey = data.value === 'In Order' ? 'inOrder' : 'notInOrder';
-		if (dataKey === 'inOrder' || dataKey === 'notInOrder') {
-			setLineProps({
-				...lineProps,
-				[dataKey]: !lineProps[dataKey],
-			});
-		}
-	};
+	for (let i = 0; i < orderGroup.length; i++) {
+		data.push({ count: orderGroup[i], number: i + 1 });
+	}
 
 	return (
 		<ResponsiveContainer width={550} height={350}>
@@ -66,7 +38,7 @@ export default function Barchart() {
 						value: 'Group Count',
 						style: { textAnchor: 'middle' },
 						position: 'insideBottom',
-						offset: -80,
+						offset: -65,
 						fontSize: 16,
 						fill: 'hsl(var(--text))',
 					}}
@@ -85,7 +57,7 @@ export default function Barchart() {
 						fill: 'hsl(var(--text))',
 						angle: -90,
 						position: 'left',
-						offset: -10,
+						offest: 0,
 					}}
 					domain={['auto', 'auto']}
 					padding={{ top: 20, bottom: 20 }}
@@ -97,12 +69,7 @@ export default function Barchart() {
 				/>
 				<Tooltip
 					formatter={(value, name) => {
-						const color =
-							name === 'In Order'
-								? 'hsl(var(--chart-2))'
-								: name === 'Not In Order'
-									? 'hsl(var(--chart-1))'
-									: 'hsl(var(--text))';
+						const color = 'hsl(var(--text))';
 						return [
 							<span
 								style={{ color }}
@@ -129,39 +96,32 @@ export default function Barchart() {
 				>
 					<BarChart data={data}>
 						<YAxis domain={['auto', 'auto']} hide />
-						<Bar
-							dataKey="inOrder"
-							fill="hsl(var(--chart-2))"
-							name="In Order"
-							hide={!lineProps.inOrder}
-						/>
-						<Bar
-							dataKey="notInOrder"
-							fill="hsl(var(--chart-1))"
-							name="Not In Order"
-							hide={!lineProps.notInOrder}
-						/>
+						<Bar dataKey="count">
+							{data.map((entry, index) => (
+								<Cell
+									key={`Cell-${index}`}
+									fill={
+										entry.count >= 0
+											? 'hsl(var(--chart-2))'
+											: 'hsl(var(--chart-1))'
+									}
+								/>
+							))}
+						</Bar>
 					</BarChart>
 				</Brush>
-				<Bar
-					dataKey="inOrder"
-					fill="hsl(var(--chart-2))"
-					name="In Order"
-					hide={!lineProps.inOrder}
-				/>
-				<Bar
-					dataKey="notInOrder"
-					fill="hsl(var(--chart-1))"
-					name="Not In Order"
-					hide={!lineProps.notInOrder}
-				/>
-				<Legend
-					onClick={selectLine}
-					align="right"
-					wrapperStyle={{
-						cursor: 'pointer',
-					}}
-				/>
+				<Bar dataKey="count">
+					{data.map((entry, index) => (
+						<Cell
+							key={`Cell-${index}`}
+							fill={
+								entry.count >= 0
+									? 'hsl(var(--chart-2))'
+									: 'hsl(var(--chart-1))'
+							}
+						/>
+					))}
+				</Bar>
 			</BarChart>
 		</ResponsiveContainer>
 	);

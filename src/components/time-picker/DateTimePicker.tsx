@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { TimePickerDemo } from './TimePickerDemo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useReadingsStore } from '../../stores/readings.store';
 
 interface DateTimePickerProps {
@@ -17,6 +17,13 @@ export function DateTimePicker({ onRightDateChange }: DateTimePickerProps) {
 	const [date, setDate] = useState<Date>();
 
 	const { referenceTimestamp } = useReadingsStore();
+
+	useEffect(() => {
+		// Initialize the state with the referenceTimestamp if available
+		if (referenceTimestamp) {
+			setDate(referenceTimestamp);
+		}
+	}, [referenceTimestamp]);
 
 	function setDateEnsureLocal(newDate: Date | undefined) {
 		if (!newDate) return;
@@ -75,6 +82,7 @@ export function DateTimePicker({ onRightDateChange }: DateTimePickerProps) {
 				<Calendar
 					mode="single"
 					selected={date}
+					defaultMonth={referenceTimestamp || undefined}
 					onSelect={(d) => handleSelect(d)}
 					initialFocus
 					disabled={(date) =>
