@@ -13,11 +13,15 @@ export default function Piechart() {
 	const total = inOrderCount + notInOrderCount;
 
 	const data = [
-		{ name: 'In Ordered', value: inOrderCount, color: '#a5b4fc' },
 		{
-			name: 'Not In Ordered',
+			name: 'In Order',
+			value: inOrderCount,
+			color: 'hsl(var(--chart-2))',
+		},
+		{
+			name: 'Not In Order',
 			value: notInOrderCount,
-			color: '#bef264',
+			color: 'hsl(var(--chart-1))',
 		},
 	];
 
@@ -30,12 +34,26 @@ export default function Piechart() {
 					nameKey="name"
 					outerRadius={105}
 					label={({ name, value }) => `${name}: ${value}`}
+					stroke="hsl(var(--background))"
+					strokeWidth={2}
 				>
 					{data.map((obj, index) => (
 						<Cell key={index} fill={obj.color} />
 					))}
 				</Pie>
-				<Tooltip />
+				<Tooltip
+					contentStyle={{
+						backgroundColor: 'hsl(var(--form))',
+						borderRadius: '8px',
+						border: '1px solid hsl(var(--text))',
+						fontSize: 18,
+						boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+						padding: '10px',
+					}}
+					itemStyle={{
+						color: 'hsl(var(--text))',
+					}}
+				/>
 				<Legend
 					formatter={(value) => {
 						const matchedItem = data.find(
@@ -45,7 +63,7 @@ export default function Piechart() {
 							? ((matchedItem.value / total) * 100).toFixed(2)
 							: '0.00';
 
-						return `(${percentage}%)`;
+						return `${percentage}%`;
 					}}
 				/>
 			</PieChart>

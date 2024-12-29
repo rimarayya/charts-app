@@ -10,7 +10,10 @@ import {
 	Legend,
 } from 'recharts';
 
-import { useReadingsStore } from '../stores/readings.store';
+import {
+	useReadingsStore,
+	processReadingsOrder,
+} from '../stores/readings.store';
 import { useState } from 'react';
 import { toUTCFormat } from '../lib/utils';
 
@@ -45,6 +48,11 @@ export default function Linechart() {
 		}
 	};
 
+	const { oneYear } = processReadingsOrder(
+		new Date(), // Replace with the desired date
+		timestampReadings, // Use the readings from the store
+		timestampReadings // Replace with createdAtReadings if available separately
+	);
 	return (
 		<ResponsiveContainer width="100%" height={400}>
 			<LineChart
@@ -65,42 +73,71 @@ export default function Linechart() {
 						position: 'insideBottom',
 						offset: -75,
 						fontSize: 16,
-						fill: '#64748b',
+						fill: 'hsl(var(--text))',
+					}}
+					tick={{
+						fill: 'hsl(var(--text))',
+						fontSize: 14,
 					}}
 					tickMargin={5}
 				/>
 				<YAxis
 					dataKey="timestamp"
-					tickFormatter={(tick) => toUTCFormat(new Date(tick))}
+					tickFormatter={(tick) => {
+						const date = new Date(tick);
+						if (oneYear) {
+							// If all timestamps are in the same year, omit the year
+							return date.toLocaleDateString('default', {
+								month: 'numeric',
+								day: 'numeric',
+								hour: '2-digit',
+								minute: '2-digit',
+							});
+						} else {
+							// Otherwise, include the year
+							return date.toLocaleDateString('default', {
+								year: 'numeric',
+								month: 'numeric',
+								day: 'numeric',
+								hour: '2-digit',
+								minute: '2-digit',
+							});
+						}
+					}}
 					label={{
 						value: 'Timestamp',
 						style: { textAnchor: 'middle' },
 						fontSize: 16,
-						fill: '#64748b',
+						fill: 'hsl(var(--text))',
 						angle: -90,
 						position: 'left',
 						offset: 35,
 					}}
 					tick={{
-						fill: '#4B5563',
+						fill: 'hsl(var(--text))',
 						fontSize: 14,
 					}}
 					domain={['auto', 'auto']}
 					padding={{ top: 20, bottom: 20 }}
 				/>
-				<Brush dataKey="readingNumber" height={40} stroke="#d4d4d8">
+				<Brush
+					dataKey="readingNumber"
+					height={40}
+					stroke="hsl(var(--brush))"
+					fill="hsl(var(--brush-fill))"
+				>
 					<LineChart data={data}>
 						<YAxis domain={['auto', 'auto']} hide />
 						<Line
 							dataKey="timestamp"
-							stroke="#bef264"
+							stroke="hsl(var(--chart-2))"
 							strokeWidth={1}
 							dot={false}
 							hide={!lineProps.timestamp}
 						/>
 						<Line
 							dataKey="createdAt"
-							stroke="#a5b4fc"
+							stroke="hsl(var(--chart-1))"
 							strokeWidth={1}
 							dot={false}
 							hide={!lineProps.createdAt}
@@ -149,10 +186,22 @@ export default function Linechart() {
 
 						return `Delay: ${formattedTime} | ID: ${data.readingId} | #${data.readingNumber}`;
 					}}
+					contentStyle={{
+						backgroundColor: 'hsl(var(--form))',
+						borderRadius: '8px',
+						border: '1px solid hsl(var(--text))',
+						color: 'hsl(var(--text))',
+						fontSize: 18,
+						boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+						padding: '10px',
+					}}
+					itemStyle={{
+						fontSize: 18,
+					}}
 				/>
 				<Line
 					dataKey="timestamp"
-					stroke="#bef264"
+					stroke="hsl(var(--chart-2))"
 					name="Timestamp"
 					strokeWidth={2}
 					dot={false}
@@ -160,7 +209,7 @@ export default function Linechart() {
 				/>
 				<Line
 					dataKey="createdAt"
-					stroke="#a5b4fc"
+					stroke="hsl(var(--chart-1))"
 					name="Created At"
 					strokeWidth={2}
 					dot={false}
