@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import allReadings from '../data/messed-up-map-readings.json';
+import allReadings from '../data/full-trip-140-km.json';
 import { IReading } from '../types/reading.type';
 
 interface ReadingsStore {
@@ -19,17 +19,23 @@ interface ReadingsStore {
 	 */
 	referenceTimestamp: Date | null;
 	/**
-	 * The not in ordered count of the readings.
+	 * The not in order count of the readings.
 	 */
 	notInOrderCount: number;
 	/**
-	 * The in ordered count of the readings.
+	 * The in order count of the readings.
 	 */
 	inOrderCount: number;
 	/**
 	 * The in total count of the readings.
 	 */
 	totalReadingsInDomain: number;
+	/**
+	 * The order change groups.
+	 *
+	 * Positive numbers indicates in-order readings, and nigative otherwise.
+	 */
+	orderGroup: number[];
 
 	/**
 	 * All the readings sorted by timestamp.
@@ -52,12 +58,17 @@ export function processReadingsOrder(
 ) {
 	const referenceDateTime = date;
 
-	const notInOrderedTimestamps: Array<Date> = [];
+	let notInOrderCount = 0;
 
 	let comparisonDate = referenceDateTime;
 
 	// Assume all readings are in the same year initially
 	let oneYear = true;
+
+	let counter = 0;
+	let isGroupInOrder: boolean | undefined = undefined;
+
+	const orderGroup: Array<number> = [];
 
 	if (createdAtReadings.length > 0) {
 		const firstYear = new Date(
@@ -70,28 +81,49 @@ export function processReadingsOrder(
 			);
 			const readingYear = readingTimestamp.getFullYear();
 
+			const differentYear = readingYear !== firstYear;
+
 			// Check if this reading's year differs from the first year
-			if (readingYear !== firstYear) {
+			if (differentYear) {
 				oneYear = false;
 			}
 
+			const inOrder = readingTimestamp >= comparisonDate;
+
 			// Check if this reading is out of order
-			if (readingTimestamp < comparisonDate) {
-				notInOrderedTimestamps.push(readingTimestamp);
-			} else {
+			if (inOrder) {
 				comparisonDate = readingTimestamp;
+				if (isGroupInOrder == false) {
+					orderGroup.push(counter * -1);
+					counter = 0;
+				}
+				isGroupInOrder = true;
+			} else {
+				notInOrderCount += 1;
+				if (isGroupInOrder) {
+					orderGroup.push(counter);
+					counter = 0;
+				}
+				isGroupInOrder = false;
 			}
+			counter += 1;
+		}
+
+		if (isGroupInOrder) {
+			orderGroup.push(counter);
+		} else if (!isGroupInOrder) {
+			orderGroup.push(counter * -1);
 		}
 	}
 
 	// Calculate counts
-	const notInOrderCount = notInOrderedTimestamps.length;
 	const totalReadingsInDomain = readings.length;
 	const inOrderCount = totalReadingsInDomain - notInOrderCount;
 	return {
 		notInOrderCount,
 		inOrderCount,
 		totalReadingsInDomain,
+		orderGroup,
 		oneYear, // true if all readings are in the same year
 	};
 }
@@ -105,6 +137,7 @@ export const useReadingsStore = create<ReadingsStore>((set) => {
 		notInOrderCount: 0,
 		inOrderCount: 0,
 		totalReadingsInDomain: 0,
+		orderGroup: [],
 
 		createdAtReadings: [],
 		timestampReadings: [],

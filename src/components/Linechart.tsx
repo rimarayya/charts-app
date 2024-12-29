@@ -111,7 +111,7 @@ export default function Linechart() {
 						fill: 'hsl(var(--text))',
 						angle: -90,
 						position: 'left',
-						offset: 35,
+						offset: 25,
 					}}
 					tick={{
 						fill: 'hsl(var(--text))',
@@ -215,7 +215,13 @@ export default function Linechart() {
 					dot={false}
 					hide={!lineProps.createdAt}
 				/>
-				<Legend onClick={selectLine} align="right" />
+				<Legend
+					onClick={selectLine}
+					align="right"
+					wrapperStyle={{
+						cursor: 'pointer',
+					}}
+				/>
 			</LineChart>
 		</ResponsiveContainer>
 	);

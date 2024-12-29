@@ -16,7 +16,7 @@ export default function Cards() {
 				</CardHeader>
 			</Card>
 
-			<Card className="bg-chart-2 last:h-28 w-56 flex flex-col justify-between text-white">
+			<Card className="bg-chart-2 h-28 w-56 flex flex-col justify-between text-white">
 				<CardHeader>
 					<h3 className="text-xl font-semibold">In-Order</h3>
 					<p className="text-2xl font-bold">{inOrderCount}</p>
