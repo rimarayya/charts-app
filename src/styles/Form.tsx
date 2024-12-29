@@ -38,13 +38,13 @@ export default function Form() {
 		>
 			<div className="flex space-y-4 lg:space-y-0 lg:space-x-4">
 				<div className="flex items-center w-full lg:w-auto">
-					<Label htmlFor="reference-date" className="w-28">
+					<Label htmlFor="reference-date" className="w-28 text-text">
 						Reference Date
 					</Label>
 					<DateTimePicker onRightDateChange={onRightDateChange} />
 				</div>
 				<div className="flex items-center w-full lg:w-auto">
-					<Label htmlFor="start-domain" className="w-36">
+					<Label htmlFor="start-domain" className="w-36 text-text">
 						Start Domain
 					</Label>
 					<Input
@@ -56,7 +56,7 @@ export default function Form() {
 					/>
 				</div>
 				<div className="flex items-center w-full lg:w-auto">
-					<Label htmlFor="end-domain" className="w-36">
+					<Label htmlFor="end-domain" className="w-36 text-text">
 						End Domain
 					</Label>
 					<Input
