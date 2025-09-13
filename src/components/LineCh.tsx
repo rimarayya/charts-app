@@ -17,7 +17,7 @@ import {
 import { useState } from 'react';
 import { toUTCFormat } from '../lib/utils';
 
-export default function Linechart() {
+export default function LineCh() {
 	const { timestampReadings, domainStart } = useReadingsStore();
 
 	const data = timestampReadings.map((reading, index) => {
@@ -49,9 +49,14 @@ export default function Linechart() {
 	};
 
 	const { oneYear } = processReadingsOrder(
-		new Date(), // Replace with the desired date
-		timestampReadings, // Use the readings from the store
-		timestampReadings // Replace with createdAtReadings if available separately
+		// Replace with the desired date
+		new Date(),
+
+		// Use the readings from the store
+		timestampReadings,
+
+		// Replace with createdAtReadings if available separately
+		timestampReadings
 	);
 	return (
 		<ResponsiveContainer width="100%" height={400}>

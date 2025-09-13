@@ -1,6 +1,6 @@
-import Barchart from '../components/Barchart';
-import Linechart from '../components/Linechart';
-import Piechart from '../components/Piechart';
+import BarCh from '../components/BarCh';
+import LineCh from '../components/LineCh';
+import PieCh from '../components/PieCh';
 import { useReadingsStore } from '../stores/readings.store';
 import Cards from '../styles/Cards';
 import '../main.css';
@@ -13,16 +13,16 @@ export default function OrderReadings() {
 			<div className="w-[65%]">
 				<Cards />
 				<div className="ml-2">
-					<Linechart />
+					<LineCh />
 				</div>
 			</div>
 
 			<div className="w-[50%]">
 				<div className="ml-2">
-					<Barchart />
+					<BarCh />
 				</div>
 				<div className="ml-2">
-					<Piechart />
+					<PieCh />
 				</div>
 			</div>
 		</div>

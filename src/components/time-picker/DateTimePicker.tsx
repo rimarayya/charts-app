@@ -18,8 +18,8 @@ export function DateTimePicker({ onRightDateChange }: DateTimePickerProps) {
 
 	const { referenceTimestamp } = useReadingsStore();
 
+	// Initialize state with referenceTimestamp from store when component mounts
 	useEffect(() => {
-		// Initialize the state with the referenceTimestamp if available
 		if (referenceTimestamp) {
 			setDate(referenceTimestamp);
 		}

@@ -104,3 +104,25 @@
 .custom-date-picker::-webkit-calendar-picker-indicator {
 	filter: invert(30%) sepia(60%) saturate(500%) hue-rotate(200deg);
 }
+/* Accordion header for the whole component */
+.accordion {
+	cursor: pointer;
+	padding: 10px;
+	background-color: #f1f1f1;
+	border: 1px solid #ccc;
+	text-align: left;
+	width: 100%;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.accordion-content {
+	display: none; /* Hidden by default */
+	padding: 10px;
+}
+
+.accordion.active .accordion-content {
+	display: block; /* Make it visible when active */
+}

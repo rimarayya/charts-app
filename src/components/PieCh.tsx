@@ -8,7 +8,7 @@ import {
 } from 'recharts';
 import { useReadingsStore } from '../stores/readings.store';
 
-export default function Piechart() {
+export default function PieCh() {
 	const { inOrderCount, notInOrderCount } = useReadingsStore();
 	const total = inOrderCount + notInOrderCount;
 

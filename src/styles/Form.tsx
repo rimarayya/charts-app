@@ -34,9 +34,9 @@ export default function Form() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="p-4 bg-form shadow m-4 rounded-lg"
+			className="p-4 bg-form shadow m-4 rounded-lg flex justify-center"
 		>
-			<div className="flex space-y-4 lg:space-y-0 lg:space-x-4">
+			<div className="flex flex-wrap items-center space-y-4 lg:space-y-0 lg:space-x-4">
 				<div className="flex items-center w-full lg:w-auto">
 					<Label htmlFor="reference-date" className="w-28 text-text">
 						Reference Date

@@ -17,7 +17,11 @@ export default function AccordionSection({
 }: AccordionSectionProps) {
 	return (
 		<div className="mx-5">
-			<Accordion type="single" collapsible>
+			<Accordion
+				type="single"
+				collapsible
+				defaultValue={accordionTriggerTitle}
+			>
 				<AccordionItem value={accordionTriggerTitle}>
 					<AccordionTrigger className="text-base text-text no-underline hover:no-underline">
 						{accordionTriggerTitle}
