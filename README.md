@@ -1,50 +1,103 @@
-# React + TypeScript + Vite
+# Charts App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive dashboard application for visualizing data using interactive charts.
 
-Currently, two official plugins are available:
+![Dashboard Dark Mode](src/screenshots/darkMode.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 📊 Interactive charts and data visualizations
+- ⚡ Built with **Vite** for fast development
+- 🎨 Styled using **Tailwind CSS**
+- 💻 Written in **React + TypeScript**
+- ✅ Code linting with **ESLint** and formatting with **Prettier**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Recharts](https://recharts.org/)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### Installation
+
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/rimarayya/charts-app.git
+    ```
+
+2. **Move to the project file** :
+
+    ```bash
+    cd charts_app
+    ```
+
+3. **Install dependencies**:
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+4. **Start the development server**:
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+5. **Open your browser and navigate to**:
+    ```
+    http://localhost:5173
+    ```
+
+### Build for Production
+
+```bash
+npm run build
+# or
+yarn build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The production-ready files will be in the `dist/` folder.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Preview Production Build
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run preview
+# or
+yarn preview
 ```
+
+## Project Structure
+
+```
+charts_app/
+├── index.html           # Entry HTML file
+├── package.json         # Dependencies and scripts
+├── vite.config.ts       # Vite configuration
+├── tailwind.config.js   # Tailwind configuration
+├── tsconfig.json        # TypeScript configuration
+├── src/                 # Source code
+│   ├── components/      # Reusable UI components
+│   ├── pages/           # Dashboard pages
+│   └── assets/          # Static assets
+└── public/              # Public files
+```
+
+## Screenshots
+
+Add screenshots of your dashboard here:
+
+![Dashboard Light Mode](src/screenshots/lightMode.png)
