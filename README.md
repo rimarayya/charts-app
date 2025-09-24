@@ -31,16 +31,16 @@ A modern and responsive dashboard application for visualizing data using interac
 
 1. **Clone the repository**:
 
-    [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)(https://github.com/rimarayya/charts-app.git)
-    [![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/uni.rima.rayya/charts-app#)
-
-2. **Move to the project file** :
+   [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/rimarayya/charts-app)
+   [![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/uni.rima.rayya/charts-app)
+   
+3. **Move to the project file** :
 
     ```bash
     cd charts_app
     ```
 
-3. **Install dependencies**:
+4. **Install dependencies**:
 
     ```bash
     npm install
@@ -48,7 +48,7 @@ A modern and responsive dashboard application for visualizing data using interac
     yarn install
     ```
 
-4. **Start the development server**:
+5. **Start the development server**:
 
     ```bash
     npm run dev
@@ -56,7 +56,7 @@ A modern and responsive dashboard application for visualizing data using interac
     yarn dev
     ```
 
-5. **Open your browser and navigate to**:
+6. **Open your browser and navigate to**:
     ```
     http://localhost:5173
     ```
