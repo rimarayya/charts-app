@@ -98,6 +98,4 @@ charts_app/
 
 ## Screenshots
 
-Add screenshots of your dashboard here:
-
 ![Dashboard Light Mode](src/screenshots/lightMode.png)
