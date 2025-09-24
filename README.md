@@ -96,6 +96,6 @@ charts_app/
 └── public/              # Public files
 ```
 
-## Screenshots
+## Screenshot of Dashboard Light Mode
 
 ![Dashboard Light Mode](src/screenshots/lightMode.png)
