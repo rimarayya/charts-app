@@ -31,9 +31,8 @@ A modern and responsive dashboard application for visualizing data using interac
 
 1. **Clone the repository**:
 
-    ```bash
-    git clone https://github.com/rimarayya/charts-app.git
-    ```
+    [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)(https://github.com/rimarayya/charts-app.git)
+    [![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/uni.rima.rayya/charts-app#)
 
 2. **Move to the project file** :
 
